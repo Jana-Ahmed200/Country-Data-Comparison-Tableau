@@ -33,8 +33,6 @@ The raw dataset had 263 rows and 41 columns. I cleaned it in Excel Power Query, 
 Dashboards include navigation icons to move between pages, and everything is tied together in one Tableau Story.
 ## Dashboards
 
-## Dashboards
-
 ### Overview Dashboard
 ![Overview Dashboard](dashboards/dash%20home.png)
 
@@ -53,13 +51,13 @@ Dashboards include navigation icons to move between pages, and everything is tie
 ![Story - Welcome](story/home.png)
 
 ### Population
-![Story - Population](story/home.png)
+![Story - Population](story/population.png)
 
 ### GDP Analysis
-![Story - GDP Analysis](story/home.png)
+![Story - GDP Analysis](story/gdp.png)
 
 ### Trade Finance
-![Story - Trade Finance](story/home.png)
+![Story - Trade Finance](story/trade.png)
 
 ## Key Insights
 - China and India dominate population, while natural growth is highest in parts of Africa and South Asia and near zero in countries like Russia, Japan and Italy.

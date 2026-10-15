@@ -34,6 +34,7 @@ Dashboards include navigation icons to move between pages, and everything is tie
 ## Dashboards
 
 ### Population Dashboard
+![overview Dashboard](dashboards/dash home.jpg)
 ![Population Dashboard](dashboards/dash population.jpg)
 
 ### GDP Analysis Dashboard

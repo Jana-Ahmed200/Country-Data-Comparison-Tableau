@@ -40,11 +40,6 @@ Dashboards include navigation icons to move between pages, and everything is tie
 - Germany has the largest trade surplus (about 177B), while the United States has by far the largest deficit (about -681B).
 - Bangladesh's unemployment rate (about 40%) is an outlier in this dataset.
 
-## Screenshots
-![overview Dashboard](screenshoots/home.jpg)
-![Population Dashboard](screenshoots/population.jpg)
-![GDP Analysis Dashboard](screenshoots/GDP.jpg)
-![Trade Finance Dashboard](screenshoots/trade.jpg)
 
 ## Limitations
 - The dataset is a single snapshot with no time dimension, so there is no trend over time.

@@ -52,4 +52,3 @@ Dashboards include navigation icons to move between pages, and everything is tie
 - `Country_Dashboard.twbx`: Tableau packaged workbook
 - `Country Data Comparison3.xlsx`: cleaned dataset
 - `Country Data Comparison.csv`: original dataset
-- `screenshoots/`: dashboard screenshots

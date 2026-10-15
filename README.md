@@ -31,6 +31,30 @@ The raw dataset had 263 rows and 41 columns. I cleaned it in Excel Power Query, 
 3. **Trade Finance Dashboard:** trade surplus vs deficit, imports vs exports
 
 Dashboards include navigation icons to move between pages, and everything is tied together in one Tableau Story.
+## Dashboards
+
+### Population Dashboard
+![Population Dashboard](dashboards/dash population.jpg)
+
+### GDP Analysis Dashboard
+![GDP Analysis Dashboard](dashboards/dash gdp.jpg)
+
+### Trade Finance Dashboard
+![Trade Finance Dashboard](dashboards/dash trade.jpg)
+
+## Tableau Story
+
+### Welcome
+![Story - Welcome](story/home.jpg)
+
+### Population
+![Story - Population](story/population.jpg)
+
+### GDP Analysis
+![Story - GDP Analysis](story/gdp.jpg)
+
+### Trade Finance
+![Story - Trade Finance](story/trade.jpg)
 
 ## Key Insights
 - China and India dominate population, while natural growth is highest in parts of Africa and South Asia and near zero in countries like Russia, Japan and Italy.
@@ -40,13 +64,6 @@ Dashboards include navigation icons to move between pages, and everything is tie
 - Germany has the largest trade surplus (about 177B), while the United States has by far the largest deficit (about -681B).
 - Bangladesh's unemployment rate (about 40%) is an outlier in this dataset.
 
-
-## Limitations
-- The dataset is a single snapshot with no time dimension, so there is no trend over time.
-- The data looks older than the current year, so values may be outdated.
-- The Income Group thresholds (High over 15,000, Middle from 3,000, Low below 3,000 in GDP per capita) are my own choice, not an official classification.
-- Missing values in rate columns were filled with medians, so some values are estimates.
-- Serbia and Montenegro was mapped to Serbia, and the European Union row is not a country.
 
 ## Files
 - `Country_Dashboard.twbx`: Tableau packaged workbook

@@ -1,74 +1,134 @@
 # Country Data Comparison: Excel Power Query and Tableau
 
-Data cleaning in Excel Power Query and an interactive Tableau dashboard and story comparing country indicators (population, GDP, life expectancy, electricity use, unemployment and trade).
+An end-to-end analytics project: cleaning a raw country indicators dataset in **Excel Power Query**, then building an interactive **Tableau** report with four linked dashboards and a Tableau Story that compares countries on economy, trade, health, and energy.
+
+---
 
 ## Project Overview
-The raw dataset had 263 rows and 41 columns. I cleaned it in Excel Power Query, then built three linked Tableau dashboards and one Tableau Story to explore patterns, correlations and outliers across countries.
 
-## Tools
-- Excel Power Query (data cleaning)
-- Tableau (dashboards and story)
+The raw dataset holds dozens of indicators per country (CIA World Factbook style, approx. 2005 estimates). The goal was to turn it into a clean, analysis-ready table and answer questions such as:
 
-## Data Cleaning (Power Query)
-- Split the semicolon-delimited file, removed the type row and promoted headers
-- Trimmed and cleaned the `Country` column and removed duplicates
-- Removed rows with fewer than 5 non-null values (28 rows)
-- Removed columns with more than 50% missing values (natural gas columns and public debt)
-- Converted zeros to null in Unemployment rate and telephone columns
-- Filled remaining nulls in rate columns with the column median
-- Final result: 235 rows and 36 columns
+- Which economies and trade partners dominate the world?
+- How are wealth, life expectancy, and infant mortality related?
+- Who produces and consumes energy, and how does infrastructure compare across income groups?
+
+## Dataset
+
+- **Source:** country indicators table (CIA World Factbook), approx. 2005 estimates
+- **Raw file:** `uncleaned Country Data Comparison.csv`, semicolon-delimited, 263 rows x 45 columns (the second row holds data types)
+- **Cleaned file:** `cleaned Country Data Comparison.xlsx`, 192 countries x 36 indicators
+- **Indicators:** population, GDP, trade, debt, reserves, inflation, health, HIV/AIDS, energy, roads, telephones, internet
+
+## Data Cleaning (Excel Power Query)
+
+**Structure**
+- Loaded the semicolon-delimited CSV and removed the data-type row
+- Trimmed and cleaned text, removed duplicates and blank rows, fixed data types
+- Renamed columns to drop units from the headers
+
+**Rows: 263 down to 192**
+- Removed non-country entities (European Union, Antarctica, British Indian Ocean Territory, oceans, World)
+- Removed dependent territories and very small islands
+
+**Columns: 45 down to 36**
+- Dropped columns that were mostly empty: natural gas (5 columns), oil exports, oil imports, oil proved reserves, public debt (% of GDP)
+- Created `Oil Net exports` = oil production - oil consumption
+
+**Missing values**
+- `Current account balance` = Exports - Imports
+- `People living with HIV/AIDS` = adult prevalence rate / 100 x Population
+- `Military expenditures (USD)` = % of GDP / 100 x GDP
+- `Military expenditures (% of GDP)` = median of available values (1.9% for 28 countries)
+- Remaining blanks were left as null instead of being invented
 
 ## Tableau Work
-**Calculated fields:** Electricity per Capita, Natural Increase, Income Group, Trade Balance, Trade Size
 
-**Parameters:** Top N (controls the top countries shown) and bin size (controls the histogram)
+**Calculated fields:** Trade Balance, Trade Status, Income Group, Selected Metric, Debt to GDP, Weighted Birth/Death Rate, Internet Penetration, KPI helper fields (Top GDP Country, Top Surplus/Deficit Country)
 
-**Visualization types:** filled map, bar chart, scatter plot (log scale), histogram, treemap, KPI tiles
+**Parameters:** Metric Selector (Exports / Imports / GDP / Population), Trade Size (Top N slider)
 
 **Dashboards**
-1. **Population Dashboard:** population and natural growth treemap, population vs electricity scatter, unemployment rate
-2. **GDP Analysis Dashboard:** top GDP per capita, life expectancy by income group
-3. **Trade Finance Dashboard:** trade surplus vs deficit, imports vs exports
 
-Dashboards include navigation icons to move between pages, and everything is tied together in one Tableau Story.
-## Dashboards
+| Dashboard | What it shows |
+|---|---|
+| Executive Overview | KPIs, global metric map, top 10 exporters, wealth vs life expectancy, trade balance |
+| Economy & Trade | Growth vs inflation, debt to GDP, foreign reserves, exports vs imports |
+| Health & Demographics | Life expectancy, infant mortality, fertility, HIV prevalence, birth vs death rate by income group |
+| Energy & Infrastructure | Oil production, net oil exporters, electricity, roads vs railways, internet and phone access |
 
-### Overview Dashboard
-![Overview Dashboard](dashboards/dash%20home.png)
+**Interactivity:** dashboard filter actions, income and trade-status filters, Top N parameter, navigation buttons between dashboards
 
-### Population Dashboard
-![Population Dashboard](dashboards/dash%20population.png)
-
-### GDP Analysis Dashboard
-![GDP Analysis Dashboard](dashboards/dash%20gdp.png)
-
-### Trade Finance Dashboard
-![Trade Finance Dashboard](dashboards/dash%20trade.png)
-
-## Tableau Story
-
-### Welcome
-![Story - Welcome](story/home.png)
-
-### Population
-![Story - Population](story/population.png)
-
-### GDP Analysis
-![Story - GDP Analysis](story/gdp.png)
-
-### Trade Finance
-![Story - Trade Finance](story/trade.png)
+**Story:** a guided walk through the findings, one dashboard per story point
 
 ## Key Insights
-- China and India dominate population, while natural growth is highest in parts of Africa and South Asia and near zero in countries like Russia, Japan and Italy.
-- Electricity consumption rises with population, but countries of similar size can differ a lot.
-- Luxembourg leads GDP per capita, and many top spots are small, finance-driven economies.
-- Life expectancy rises with income: high-income countries cluster at 75 to 80 years.
-- Germany has the largest trade surplus (about 177B), while the United States has by far the largest deficit (about -681B).
-- Bangladesh's unemployment rate (about 40%) is an outlier in this dataset.
 
+- The **United States** has the largest GDP ($11.75T) and also the largest trade deficit (-$681B); **Germany** has the largest trade surplus (+$176.6B)
+- Higher income goes with longer life and lower infant mortality, but high HIV prevalence pulls several African countries far below the trend (Swaziland has the highest adult prevalence at 38.8%)
+- Fertility and infant mortality rise together, and both are highest in low-income countries
+- Median inflation is only 3.5%, while a few countries (for example Zimbabwe at 133%) are extreme outliers
 
-## Files
+## Screenshots
+
+| | |
+|---|---|
+| ![Global dashboard](screenshots/global%20dashboard.png) | ![Economy dashboard](screenshots/economy%20dashboard.png) |
+| ![Demographics dashboard](screenshots/demographics%20dasboard.png) | ![Energy dashboard](screenshots/energy%20dashboard.png) |
+
+Story and key insights: see the `screenshots` folder.
+
+## Repository Structure
+
+```
+├── screenshots/                               Dashboard and story images
+├── uncleaned Country Data Comparison.csv      Raw dataset
+├── cleaned Country Data Comparison.xlsx       Cleaned dataset
+├── country comparison project.twbx            Tableau packaged workbook
+└── README.md
+```
+
+## Limitations
+
+- Data is a snapshot of approx. 2005 estimates, not current figures
+- Some values (HIV cases, military spending) were estimated to fill gaps, so those fields are approximate
+- 28 countries share the same military spending % (the median), so that field is not meaningful for country-level comparison
+- Some indicators still have gaps: railways (32% missing), investment (25%), HIV deaths (24%), unemployment (18%)
+- Extreme outliers were capped on charts for readability; the raw values stay in the data
+
+## Tools
+
+Excel Power Query, Tableau Desktop, Tableau Public
+
+## How to Explore
+
+1. Open the live dashboard on Tableau Public: [Tableau Public link]
+2. Or download `country comparison project.twbx` and open it in Tableau Desktop or Tableau Public (the data is packaged inside)
+3. To reproduce the cleaning, load `uncleaned Country Data Comparison.csv` in Excel Power Query (delimiter: semicolon) and follow the steps above, or compare with the cleaned file
+
+## Skills Demonstrated
+
+- Data cleaning and transformation in Excel Power Query (custom columns, conditional logic, filtering, null handling)
+- Tableau calculated fields, parameters, LOD expressions, and Top N filters
+- Dashboard design: KPI cards, maps, scatter plots, diverging bars, dual-measure charts
+- Dashboard actions, interactive filters, and navigation between dashboards
+- Data storytelling with a Tableau Story
+- Handling outliers and missing data transparently
+
+## Future Improvements
+
+- Replace the approx. 2005 data with a current source (for example World Bank indicators) and add a time dimension
+- Add a Region field to compare regions, not only income groups
+- Use population-weighted averages across all comparisons
+
+## Acknowledgements
+
+Data: CIA World Factbook (country indicators, approx. 2005 estimates)
+
+## Author
+
+**Jana Ahmed**
+Business Information Systems student at Capital University | Aspiring Data Analyst
+
+[GitHub](https://github.com/Jana-Ahmed200) · [LinkedIn link: https://www.linkedin.com/in/jana-ahmed-rashad-242328373?utm_source=share_via&utm_content=profile&utm_medium=member_ios] · [Email:ja01007325655@gmail.com]
 - `Country_Dashboard.twbx`: Tableau packaged workbook
 - `Country Data Comparison3.xlsx`: cleaned dataset
 - `Country Data Comparison.csv`: original dataset
